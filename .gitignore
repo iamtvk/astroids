@@ -1,0 +1,3 @@
+# Ignore specific files
+shell.nix
+__pycache__/
