@@ -1,9 +1,8 @@
 import pygame
 from typing import Tuple
 
-from pygame.sysfont import initsysfonts_unix
 from circleshape import CircleShape
-from constants import PLAYER_RADIUS, PLAYER_SHOOT_COOLDOWN, PLAYER_SHOOT_SPEED, PLAYER_SPEED, PLAYER_TURN_SPEED, SHOT_RADIUS
+from constants import *
 from shot import Shot
 
 class Player(CircleShape):

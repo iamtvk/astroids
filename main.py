@@ -10,6 +10,7 @@ from shot import Shot
 
 def main():
     pygame.init()
+    pygame.mixer.init()
     screen = pygame.display.set_mode(size=(SCREEN_WIDTH,SCREEN_HEIGHT))
     game_time = pygame.time.Clock()
     pygame.display.set_caption('Astroids Game')
@@ -32,8 +33,15 @@ def main():
     theasteroidfield = AsteroidField()
 
     background = pygame.image.load('assets/space_background.png').convert()
+
     font = pygame.font.Font(None,40)
-    game_over_txt = font.render('Game Over macha!',True,(255,255,255))
+    game_over_txt = font.render('Game Over macha! Press "q" to quit or "r" to respawn',True,(255,255,255))
+    text_rect = game_over_txt.get_rect()
+    text_rect.center = (screen.get_width()//2, screen.get_height()//2)
+
+    #background score
+    pygame.mixer.music.load('assets/Tension.wav')
+    pygame.mixer.music.play(-1)
 
 
     # updatable.add(theasteroid)
@@ -63,8 +71,9 @@ def main():
         for item in all_asteroids:
 
             if theplayer.isColliding(item):
+                pygame.mixer.music.stop()
                 game_over = True
-                screen.blit(game_over_txt,(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+                screen.blit(game_over_txt,text_rect)
                 pygame.display.flip()
 
                 while game_over:
@@ -79,6 +88,7 @@ def main():
                             elif event.key == pygame.K_r:
                                 item.kill()
                                 game_over = False
+                                pygame.mixer.music.play(-1)
                                 break
                     pygame.time.Clock().tick(5)
 
