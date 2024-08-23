@@ -2,7 +2,6 @@ import sys
 import pygame
 from pygame.display import update
 from asteroid import Asteroid
-import asteroid
 from asteroidfield import AsteroidField
 from circleshape import CircleShape
 from constants import *
@@ -13,6 +12,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode(size=(SCREEN_WIDTH,SCREEN_HEIGHT))
     game_time = pygame.time.Clock()
+    pygame.display.set_caption('Astroids Game')
 
     #Crating groups
     allshots = pygame.sprite.Group()
@@ -32,6 +32,8 @@ def main():
     theasteroidfield = AsteroidField()
 
     background = pygame.image.load('assets/space_background.png').convert()
+    font = pygame.font.Font(None,40)
+    game_over_txt = font.render('Game Over macha!',True,(255,255,255))
 
 
     # updatable.add(theasteroid)
@@ -39,6 +41,7 @@ def main():
     # drawable.add(theplayer,theasteroid)
     # all_asteroids.add(theasteroid)
     dt = 0
+    game_over = False
 
     # GAME LOOP ____STARTS_____----____--____#
     while True:
@@ -46,10 +49,10 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        # screen.blit(background,(0,0))
+        screen.blit(background,(0,0))
 
 
-        screen.fill(color=(0,0,0))
+        ##screen.fill(color=(0,0,0))
         #
         for item in updatable:
             item.update(dt)
@@ -60,8 +63,25 @@ def main():
         for item in all_asteroids:
 
             if theplayer.isColliding(item):
-                print("GameOver")
-                sys.exit()
+                game_over = True
+                screen.blit(game_over_txt,(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+                pygame.display.flip()
+
+                while game_over:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                            sys.exit()
+                        elif event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_q:
+                                pygame.quit()
+                                sys.exit()
+                            elif event.key == pygame.K_r:
+                                item.kill()
+                                game_over = False
+                                break
+                    pygame.time.Clock().tick(5)
+
 
             for shot in allshots:
                 if shot.isColliding(item):
