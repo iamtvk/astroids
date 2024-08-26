@@ -35,9 +35,6 @@ def main():
     background = pygame.image.load('assets/space_background.png').convert()
 
     font = pygame.font.Font(None,40)
-    game_over_txt = font.render('Game Over macha! Press "q" to quit or "r" to respawn',True,(255,255,255))
-    text_rect = game_over_txt.get_rect()
-    text_rect.center = (screen.get_width()//2, screen.get_height()//2)
 
     #background score
     pygame.mixer.music.load('assets/Tension.wav')
@@ -49,6 +46,7 @@ def main():
     # drawable.add(theplayer,theasteroid)
     # all_asteroids.add(theasteroid)
     dt = 0
+    score = 0
     game_over = False
 
     # GAME LOOP ____STARTS_____----____--____#
@@ -67,6 +65,9 @@ def main():
 
         for item in drawable:
             item.draw(screen)
+        game_over_txt = font.render(f'Game Over macha! score:{score} Press "q" to quit or "r" to respawn',True,(45, 173, 171))
+        text_rect = game_over_txt.get_rect()
+        text_rect.center = (screen.get_width()//2, screen.get_height()//2)
 
         for item in all_asteroids:
 
@@ -87,6 +88,7 @@ def main():
                                 sys.exit()
                             elif event.key == pygame.K_r:
                                 item.kill()
+                                score = 0
                                 game_over = False
                                 pygame.mixer.music.play(-1)
                                 break
@@ -97,6 +99,14 @@ def main():
                 if shot.isColliding(item):
                     item.split()
                     shot.kill()
+                    score += 1
+
+        score_txt = font.render(f'Score: {score}',True,pygame.Color([255,255,255]))
+        screen.blit(score_txt, (SCREEN_WIDTH - 200,10))
+
+        fps = str(int(game_time.get_fps()))
+        fps_text = font.render(f'FPS: {fps}',True,pygame.Color([255,255,255]))
+        screen.blit(fps_text, (10,10))
 
 
         pygame.display.flip()
