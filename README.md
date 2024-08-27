@@ -1,4 +1,10 @@
-# Asteroids stooting game 
+# Asteroids stooting game
+
+<p align=center> <img src= "https://forthebadge.com/images/featured/featured-built-with-love.svg"><img/> <p/>
+
+
+
+
 ![image](https://github.com/user-attachments/assets/5d4cd18f-0b7c-41ca-a480-cdc771c1c1e0)
 
 ## How to Play ?
