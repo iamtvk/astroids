@@ -1,6 +1,6 @@
-# Asteroids stooting game
+<h1 align=center>Asteroids Shooting Game</h1>
 
-<p align=center> <img src= "https://forthebadge.com/images/featured/featured-built-with-love.svg"><img/> <p/>
+<p align=center> <img src= "https://forthebadge.com/images/featured/featured-built-with-love.svg"></img> </p>
 
 
 
